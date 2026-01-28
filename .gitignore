@@ -32,3 +32,8 @@ yarn-error.log*
 # TypeScript
 *.tsbuildinfo
 next-env.d.ts
+
+# Internal documentation (private thinking/methodology)
+CLAUDE.md
+docs/
+C4-Documentation/
