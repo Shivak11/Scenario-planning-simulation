@@ -17,6 +17,7 @@ import {
   Home,
 } from 'lucide-react'
 import { LearningSidebar, BookOpen, Building, Lightbulb, type LearningTab } from '@/components/simulation/LearningSidebar'
+import { DIFFERENTIAL_IMPACT_PROMPT } from '@/lib/prompts'
 
 type FilterCategory = PESTCategory
 
@@ -469,7 +470,7 @@ export default function ForcesPage() {
                       </div>
                     </div>
                     <a
-                      href={`https://chat.openai.com/?q=${encodeURIComponent(`Show me 5 examples where the SAME macro force (AI, regulation, etc.) had OPPOSITE effects on two different companies. For each, explain why their business model made the difference.`)}`}
+                      href={`https://chat.openai.com/?q=${encodeURIComponent(DIFFERENTIAL_IMPACT_PROMPT)}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-1.5 text-xs font-medium text-gold-400 hover:text-gold-300"

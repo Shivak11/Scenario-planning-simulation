@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import Anthropic from '@anthropic-ai/sdk'
 import { INDUSTRIES, ORGANIZATION_TYPES, CONTEXT_MODIFIERS } from '@/lib/types'
+import { buildGenerateForcesPrompt } from '@/lib/prompts'
 
 const anthropic = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY,
@@ -27,44 +28,14 @@ export async function POST(request: NextRequest) {
           .join(', ')
       : ''
 
-    const prompt = `You are a strategic foresight expert conducting a PEST analysis for scenario planning.
-
-Context:
-- Industry: ${industryName}
-- Organization Type: ${orgTypeName}
-- Strategic Challenge: ${challenge}
-- Strategic Question: ${strategicQuestion}
-${modifierLabels ? `- Context Modifiers: ${modifierLabels}` : ''}
-
-Generate 16 driving forces (4 per PEST category) that could significantly impact this organization over the next 5-10 years. These forces will be used to build scenario planning axes.
-
-Requirements for each force:
-- Name: Short, memorable title (3-5 words, e.g., "AI Talent Shortage", "Carbon Pricing Expansion")
-- Description: One clear sentence explaining the force and why it matters
-- Category: P (Political), E (Economic), S (Social), or T (Technological)
-- suggestedImpact: 1-5 (how much this could affect the organization)
-- suggestedUncertainty: 1-5 (how unpredictable the trajectory is)
-
-Focus on forces that are:
-- Genuinely uncertain (not predetermined trends)
-- Relevant to this specific industry and context
-- Capable of creating materially different futures depending on how they unfold
-- Mix of near-term (3-5 years) and longer-term (5-10 years) forces
-
-Return ONLY a valid JSON object with a "forces" key containing an array of exactly 16 force objects. No markdown, no explanation, just the JSON.
-
-Example format:
-{
-  "forces": [
-    {
-      "name": "AI Regulation Tightening",
-      "description": "Governments worldwide are considering stricter AI regulations that could limit deployment in sensitive sectors.",
-      "category": "P",
-      "suggestedImpact": 4,
-      "suggestedUncertainty": 4
-    }
-  ]
-}`
+    // Build prompt from centralized prompts file
+    const prompt = buildGenerateForcesPrompt({
+      industryName,
+      orgTypeName,
+      challenge,
+      strategicQuestion,
+      modifierLabels: modifierLabels || undefined,
+    })
 
     const message = await anthropic.messages.create({
       model: 'claude-sonnet-4-20250514',
