@@ -1,0 +1,92 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 210 40% 11%;
+    --card: 0 0% 100%;
+    --card-foreground: 210 40% 11%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 210 40% 11%;
+    --primary: 210 60% 20%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 210 40% 11%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 210 30% 40%;
+    --accent: 38 92% 50%;
+    --accent-foreground: 210 40% 11%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 210 30% 82%;
+    --input: 210 30% 82%;
+    --ring: 210 60% 20%;
+    --radius: 0.75rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-navy-200;
+  }
+  body {
+    @apply bg-white text-navy-900 font-sans antialiased;
+  }
+  h1, h2, h3, h4 {
+    @apply font-serif font-semibold tracking-tight;
+  }
+}
+
+@layer components {
+  .card-executive {
+    @apply bg-white border border-navy-200 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-200;
+  }
+
+  .btn-primary {
+    @apply bg-navy-900 text-white px-6 py-3 rounded-lg font-medium hover:bg-navy-800 transition-colors duration-200;
+  }
+
+  .btn-secondary {
+    @apply bg-navy-100 text-navy-900 px-6 py-3 rounded-lg font-medium hover:bg-navy-200 transition-colors duration-200;
+  }
+
+  .btn-gold {
+    @apply bg-gold-500 text-white px-6 py-3 rounded-lg font-medium hover:bg-gold-600 transition-colors duration-200;
+  }
+
+  .phase-container {
+    @apply max-w-5xl mx-auto px-6 py-8;
+  }
+
+  .slider-track {
+    @apply h-2 bg-navy-100 rounded-full;
+  }
+
+  .slider-thumb {
+    @apply w-5 h-5 bg-navy-900 rounded-full shadow-md cursor-pointer;
+  }
+}
+
+/* Custom scrollbar for executive feel */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #94a3b8;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #64748b;
+}
